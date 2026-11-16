@@ -24,4 +24,19 @@ VALUES
     (10, 1, 'First', 'Window', 'LP001', 'Suite 1', TRUE),
     (20, 2, 'Business', 'Aisle', 'LP002', NULL, FALSE),
     (30, 3, 'Economy', 'Window', NULL, NULL, FALSE);
-    
+
+CREATE TABLE bookings (
+    booking_id        INT          PRIMARY KEY,
+    passenger_id      INT          NOT NULL,
+    class_tier        VARCHAR(20)  NOT NULL,
+    seat_preference   VARCHAR(30),
+    lounge_pass_code  VARCHAR(50),             -- Business and First only
+    suite_number      VARCHAR(10),             -- First only
+    chauffeur_service BOOLEAN      DEFAULT FALSE,  -- TRUE for First only
+
+    CONSTRAINT fk_bookings_passenger
+        FOREIGN KEY (passenger_id) REFERENCES passengers (passenger_id),
+
+    CONSTRAINT chk_class_tier
+        CHECK (class_tier IN ('Economy', 'Business', 'First'))
+);
