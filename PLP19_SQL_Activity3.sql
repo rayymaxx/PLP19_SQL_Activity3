@@ -40,3 +40,22 @@ VALUES
     (20, 2, 'Business', 'Aisle', 'LP002', NULL, FALSE),
     (30, 3, 'Economy', 'Window', NULL, NULL, FALSE);
 
+SELECT passenger_id, name, current_location, destination, travel_date
+FROM passengers;
+
+SELECT booking_id, passenger_id, class_tier, seat_preference,
+       lounge_pass_code, suite_number, chauffeur_service
+FROM bookings;
+
+
+SELECT DISTINCT
+    p.passenger_id,
+    p.name,
+    p.current_location,
+    p.destination,
+    p.travel_date,
+    b.class_tier
+FROM passengers AS p
+INNER JOIN bookings AS b
+    ON p.passenger_id = b.passenger_id
+WHERE b.class_tier IN ('Business', 'First');
