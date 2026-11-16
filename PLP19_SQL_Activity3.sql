@@ -26,6 +26,7 @@ VALUES
     (30, 3, 'Economy', 'Window', NULL, NULL, FALSE);
 
 CREATE TABLE bookings (
+    
     booking_id        INT          PRIMARY KEY,
     passenger_id      INT          NOT NULL,
     class_tier        VARCHAR(20)  NOT NULL,
