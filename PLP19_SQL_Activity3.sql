@@ -1,4 +1,3 @@
--- checks if the database exists first
 DROP DATABASE IF EXISTS airline_db;
 CREATE DATABASE airline_db;
 USE airline_db;
@@ -12,13 +11,13 @@ CREATE TABLE passengers (
 );
 
 CREATE TABLE bookings (
-    booking_id        INT          PRIMARY KEY,
-    passenger_id      INT          NOT NULL,
-    class_tier        VARCHAR(20)  NOT NULL,
-    seat_preference   VARCHAR(30),
-    lounge_pass_code  VARCHAR(50),             -- Business and First only
-    suite_number      VARCHAR(10),             -- First only
-    chauffeur_service BOOLEAN      DEFAULT FALSE,  -- TRUE for First only
+    booking_id INT PRIMARY KEY,
+    passenger_id INT NOT NULL,
+    class_tier VARCHAR(20) NOT NULL,
+    seat_preference VARCHAR(30),
+    lounge_pass_code VARCHAR(50),    
+    suite_number VARCHAR(10),            
+    chauffeur_service BOOLEAN DEFAULT FALSE, 
 
     CONSTRAINT fk_bookings_passenger
         FOREIGN KEY (passenger_id) REFERENCES passengers (passenger_id),
@@ -59,3 +58,21 @@ FROM passengers AS p
 INNER JOIN bookings AS b
     ON p.passenger_id = b.passenger_id
 WHERE b.class_tier IN ('Business', 'First');
+
+SELECT
+    p.name AS name,
+    p.destination AS destination,
+    b.class_tier AS tier,
+    b.seat_preference AS seat_preference,
+    b.lounge_pass_code AS lounge_pass_code,
+    b.suite_number AS suite_number,
+    b.chauffeur_service AS chauffeur_service,
+    CASE
+        WHEN b.class_tier = 'Business' THEN 100 
+        ELSE 20         
+    END AS weight_allowance_kg
+FROM passengers AS p
+INNER JOIN bookings AS b
+    ON p.passenger_id = b.passenger_id
+ORDER BY p.passenger_id;
+
