@@ -76,3 +76,23 @@ INNER JOIN bookings AS b
     ON p.passenger_id = b.passenger_id
 ORDER BY p.passenger_id;
 
+--Edlawite Update
+UPDATE bookings
+SET seat_preference = 'Aisle'
+WHERE passenger_id = 1;
+
+-- Verify the update
+SELECT booking_id, passenger_id, class_tier, seat_preference
+FROM bookings
+WHERE passenger_id = 1;
+
+--Edlawite Delete
+DELETE FROM bookings
+WHERE booking_id = 30;
+
+SELECT booking_id, passenger_id, class_tier
+FROM bookings;
+
+SELECT passenger_id, name
+FROM passengers
+WHERE passenger_id = 3; 
