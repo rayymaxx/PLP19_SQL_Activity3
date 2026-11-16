@@ -36,7 +36,6 @@ CREATE TABLE bookings (
 
     CONSTRAINT fk_bookings_passenger
         FOREIGN KEY (passenger_id) REFERENCES passengers (passenger_id),
-
     CONSTRAINT chk_class_tier
         CHECK (class_tier IN ('Economy', 'Business', 'First'))
 );
